@@ -1,6 +1,6 @@
 :root {
     /* Dark Theme (Default) */
-    --primary-color: #7452c3; /* UPDATED COLOR */
+    --primary-color: #7452c3;
     --bg-color: #111827;
     --card-bg-color: #1f2937;
     --text-color: #f9fafb;
@@ -9,7 +9,7 @@
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Light Theme Variables - ADDED */
+/* Light Theme Variables */
 html[data-theme='light'] {
     --primary-color: #7452c3;
     --bg-color: #f9fafb;
@@ -36,7 +36,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ============== PARTICLES.JS BACKGROUND ============== */
@@ -49,7 +49,7 @@ body {
     z-index: -1;
 }
 
-/* ============== HEADER & NAVIGATION (UPDATED) ============== */
+/* ============== HEADER & NAVIGATION ============== */
 header {
     position: fixed;
     width: 100%;
@@ -62,7 +62,6 @@ header {
     transition: background 0.3s ease;
 }
 
-/* FIXED ALIGNMENT */
 nav {
     display: flex;
     justify-content: space-between;
@@ -73,7 +72,7 @@ nav {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 nav .logo {
@@ -86,24 +85,24 @@ nav .logo {
     border-radius: 5px;
 }
 
-nav ul {
+#nav-links {
     list-style: none;
     display: flex;
     gap: 2rem;
 }
 
-nav ul li a {
+#nav-links li a {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
+#nav-links li a:hover {
     color: var(--primary-color);
 }
 
-/* THEME TOGGLE BUTTON STYLES - ADDED */
+/* THEME TOGGLE BUTTON STYLES */
 .theme-toggle-btn {
     background: none;
     border: none;
@@ -118,6 +117,16 @@ nav ul li a:hover {
     transform: scale(1.1) rotate(15deg);
 }
 
+/* HAMBURGER MENU BUTTON STYLES */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+}
 
 /* ============== GENERAL & UTILITIES ============== */
 .container {
@@ -133,6 +142,7 @@ nav ul li a:hover {
     margin-bottom: 1rem;
     color: var(--primary-color);
 }
+
 .section-subtitle {
     text-align: center;
     max-width: 600px;
@@ -151,7 +161,7 @@ nav ul li a:hover {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: #ffffff; /* Always white for contrast */
+    color: #ffffff;
     border: 2px solid var(--primary-color);
 }
 
@@ -171,14 +181,14 @@ nav ul li a:hover {
     color: var(--bg-color);
 }
 
-/* ============== HERO SECTION ============== */
+/* ============== HERO SECTION (FIX APPLIED) ============== */
 #hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 2rem;
+    padding: 5rem 2rem 0; /* FIX APPLIED HERE */
 }
 
 .hero-content {
@@ -249,23 +259,26 @@ nav ul li a:hover {
     box-shadow: var(--shadow);
     transition: background-color 0.3s ease;
 }
+
 .experience-item h3 {
     font-size: 1.5rem;
     color: var(--text-color);
 }
+
 .experience-details {
     color: var(--primary-color);
     font-weight: 600;
     margin-bottom: 1rem;
 }
+
 .experience-item ul {
     list-style-position: inside;
 }
+
 .experience-item ul li {
     margin-bottom: 0.5rem;
     color: var(--secondary-color);
 }
-
 
 /* ============== PROJECTS SECTION ============== */
 .project-grid {
@@ -286,7 +299,7 @@ nav ul li a:hover {
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .project-info {
@@ -330,9 +343,11 @@ nav ul li a:hover {
     margin-right: 1rem;
     font-weight: 600;
 }
+
 .project-links a:hover {
     color: var(--primary-color);
 }
+
 .project-links a i {
     margin-right: 0.3rem;
 }
@@ -343,6 +358,7 @@ nav ul li a:hover {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
+
 .skill-category {
     background-color: var(--card-bg-color);
     padding: 2rem;
@@ -350,15 +366,45 @@ nav ul li a:hover {
     box-shadow: var(--shadow);
     transition: background-color 0.3s ease;
 }
+
 .skill-category h3 {
     font-size: 1.3rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
+
 .skill-category p {
     color: var(--secondary-color);
 }
 
+/* ============== ACTIVITIES & ACHIEVEMENTS ============== */
+#activities {
+    background-color: var(--card-bg-color);
+    transition: background-color 0.3s ease;
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.activity-item i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.activity-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.activity-item p {
+    color: var(--secondary-color);
+}
 
 /* ============== CERTIFICATIONS SECTION ============== */
 .cert-grid {
@@ -368,6 +414,7 @@ nav ul li a:hover {
     flex-wrap: wrap;
     gap: 2rem;
 }
+
 .cert-logo img {
     height: 80px;
     width: auto;
@@ -375,6 +422,7 @@ nav ul li a:hover {
     opacity: 0.7;
     transition: all 0.3s ease;
 }
+
 .cert-logo img:hover {
     filter: grayscale(0%);
     opacity: 1;
@@ -385,10 +433,10 @@ html[data-theme='light'] .cert-logo img {
     opacity: 1;
     filter: grayscale(50%);
 }
+
 html[data-theme='light'] .cert-logo img:hover {
     filter: grayscale(0%);
 }
-
 
 /* ============== CONTACT SECTION ============== */
 #contact {
@@ -402,10 +450,61 @@ footer {
     color: var(--secondary-color);
 }
 
+/* ============== SCROLL TO TOP BUTTON ============== */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 99;
+}
+
+.scroll-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
 /* ============== RESPONSIVE DESIGN ============== */
 @media (max-width: 768px) {
-    .nav-right ul {
-        display: none; /* Simple hiding for mobile, can be replaced with a hamburger menu */
+    .menu-toggle {
+        display: block;
+    }
+
+    #nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: min(70%, 300px);
+        height: 100vh;
+        background-color: var(--card-bg-color);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.5s ease-in-out;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #nav-links.active {
+        right: 0;
+    }
+
+    #nav-links li a {
+        font-size: 1.2rem;
     }
 }
