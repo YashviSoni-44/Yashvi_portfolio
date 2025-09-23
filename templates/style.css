@@ -1,11 +1,25 @@
 :root {
-    --bg-color: #111827; /* Dark Blue/Gray */
-    --primary-color: #7452c3; /* Teal */
-    --secondary-color: #9ca3af; /* Gray */
-    --text-color: #f9fafb; /* Off-white */
-    --card-bg-color: #1f2937; /* Lighter Dark Blue/Gray */
-    --font-family: 'Poppins', sans-serif;
+    /* Dark Theme (Default) */
+    --primary-color: #7452c3; /* UPDATED COLOR */
+    --bg-color: #111827;
+    --card-bg-color: #1f2937;
+    --text-color: #f9fafb;
+    --secondary-color: #9ca3af;
+    --header-bg: rgba(17, 24, 39, 0.8);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Light Theme Variables - ADDED */
+html[data-theme='light'] {
+    --primary-color: #7452c3;
+    --bg-color: #f9fafb;
+    --card-bg-color: #ffffff;
+    --text-color: #111827;
+    --secondary-color: #4b5563;
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 
 * {
     margin: 0;
@@ -18,10 +32,11 @@ html {
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
 }
 
 /* ============== PARTICLES.JS BACKGROUND ============== */
@@ -34,25 +49,31 @@ body {
     z-index: -1;
 }
 
-/* ============== HEADER & NAVIGATION ============== */
+/* ============== HEADER & NAVIGATION (UPDATED) ============== */
 header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 100;
-    padding: 1.5rem 5%;
-    background: rgba(17, 24, 39, 0.8);
+    padding: 1rem 5%;
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
     transition: background 0.3s ease;
 }
 
+/* FIXED ALIGNMENT */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 nav .logo {
@@ -80,6 +101,21 @@ nav ul li a {
 
 nav ul li a:hover {
     color: var(--primary-color);
+}
+
+/* THEME TOGGLE BUTTON STYLES - ADDED */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    color: var(--primary-color);
+    transform: scale(1.1) rotate(15deg);
 }
 
 
@@ -115,7 +151,7 @@ nav ul li a:hover {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: var(--bg-color);
+    color: #ffffff; /* Always white for contrast */
     border: 2px solid var(--primary-color);
 }
 
@@ -210,6 +246,8 @@ nav ul li a:hover {
     padding: 2rem;
     border-radius: 8px;
     border-left: 4px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease;
 }
 .experience-item h3 {
     font-size: 1.5rem;
@@ -240,9 +278,10 @@ nav ul li a:hover {
     background: var(--card-bg-color);
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow);
 }
 
 .project-card:hover {
@@ -277,7 +316,7 @@ nav ul li a:hover {
 }
 
 .project-tags span {
-    background-color: rgba(45, 212, 191, 0.1);
+    background-color: rgba(116, 82, 195, 0.1);
     color: var(--primary-color);
     padding: 0.2rem 0.6rem;
     border-radius: 5px;
@@ -308,6 +347,8 @@ nav ul li a:hover {
     background-color: var(--card-bg-color);
     padding: 2rem;
     border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease;
 }
 .skill-category h3 {
     font-size: 1.3rem;
@@ -340,6 +381,15 @@ nav ul li a:hover {
     transform: scale(1.1);
 }
 
+html[data-theme='light'] .cert-logo img {
+    opacity: 1;
+    filter: grayscale(50%);
+}
+html[data-theme='light'] .cert-logo img:hover {
+    filter: grayscale(0%);
+}
+
+
 /* ============== CONTACT SECTION ============== */
 #contact {
     text-align: center;
@@ -355,7 +405,7 @@ footer {
 
 /* ============== RESPONSIVE DESIGN ============== */
 @media (max-width: 768px) {
-    nav ul {
+    .nav-right ul {
         display: none; /* Simple hiding for mobile, can be replaced with a hamburger menu */
     }
 }
