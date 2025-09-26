@@ -1,6 +1,6 @@
 :root {
     /* Dark Theme (Default) */
-    --primary-color: #7452c3;
+    --primary-color: #7452c3; 
     --bg-color: #111827;
     --card-bg-color: #1f2937;
     --text-color: #f9fafb;
@@ -181,14 +181,14 @@ nav .logo {
     color: var(--bg-color);
 }
 
-/* ============== HERO SECTION (FIX APPLIED) ============== */
+/* ============== HERO SECTION ============== */
 #hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 5rem 2rem 0; /* FIX APPLIED HERE */
+    padding: 5rem 2rem 0;
 }
 
 .hero-content {
@@ -408,35 +408,84 @@ nav .logo {
 
 /* ============== CERTIFICATIONS SECTION ============== */
 .cert-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    /* This creates responsive columns that are at least 250px wide */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    justify-items: center;
 }
 
-.cert-logo img {
-    height: 80px;
-    width: auto;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: all 0.3s ease;
+.cert-card {
+    background-color: transparent;
+    width: 250px; /* Set to match the grid min-width for consistency */
+    height: 180px;
+    perspective: 1000px; /* This gives the 3D effect */
 }
 
-.cert-logo img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
+.cert-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
 
-html[data-theme='light'] .cert-logo img {
-    opacity: 1;
-    filter: grayscale(50%);
+/* The flip happens on hover */
+.cert-card:hover .cert-card-inner {
+    transform: rotateY(180deg);
 }
 
-html[data-theme='light'] .cert-logo img:hover {
-    filter: grayscale(0%);
+.cert-card-front, .cert-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* For Safari */
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
 }
+
+.cert-card-front {
+    background-color: var(--card-bg-color);
+}
+
+.cert-card-front img {
+    width: 90px;
+    height: auto;
+}
+
+.cert-card-back {
+    background-color: var(--primary-color);
+    color: white;
+    transform: rotateY(180deg);
+    padding: 1rem;
+    flex-direction: column;
+}
+
+.cert-card-back h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 0.3rem;
+}
+
+.cert-card-back ul {
+    list-style: circle; /* Your requested style */
+    padding-left: 1.5rem; /* Add some padding for the list style */
+    text-align: left;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.cert-card-back li {
+    margin-bottom: 0.2rem;
+}
+
+
 
 /* ============== CONTACT SECTION ============== */
 #contact {
@@ -508,4 +557,3 @@ footer {
         font-size: 1.2rem;
     }
 }
-
