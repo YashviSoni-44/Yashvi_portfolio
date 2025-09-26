@@ -12,11 +12,11 @@
 /* Light Theme Variables */
 html[data-theme='light'] {
     --primary-color: #7452c3;
-    --bg-color: #f9fafb;
-    --card-bg-color: #ffffff;
+    --bg-color: #d6d4df;
+    --card-bg-color: #eeeaf5;
     --text-color: #111827;
     --secondary-color: #4b5563;
-    --header-bg: rgba(255, 255, 255, 0.8);
+    --header-bg: rgba(221, 216, 232, 0.8);
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -355,7 +355,7 @@ nav .logo {
 /* ============== SKILLS SECTION ============== */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
@@ -556,4 +556,43 @@ footer {
     #nav-links li a {
         font-size: 1.2rem;
     }
+}
+
+
+/* --- 1. Hide the default cursor --- */
+body {
+    cursor: none;
+}
+
+/* --- 2. Style the base custom cursor (the dot) --- */
+.custom-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    font-size: 1rem; /* Controls the size of the emoji */
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease; /* Updated transition */
+    z-index: 9999;
+}
+
+/* --- 3. Style for the hover state (it gets bigger) --- */
+.custom-cursor.hover-effect {
+    transform: translate(-50%, -50%) scale(1.5); /* Makes the emoji 50% bigger */
+}
+
+/* --- 4. Style for the text state --- can be used in html like: data-cursor-text="Scroll" --- */
+.custom-cursor.text-state {
+    width: auto;
+    height: auto;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: var(--primary-color);
+}
+
+.custom-cursor.text-state::before {
+    content: attr(data-cursor-text); /* This will display the text */
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
 }

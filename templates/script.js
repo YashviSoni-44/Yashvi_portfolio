@@ -10,6 +10,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const particlesLight = { particles: { number: { value: 80, density: { enable: true, value_area: 800 }}, color: { value: "#7452c3" }, shape: { type: "circle" }, opacity: { value: 0.6, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#4b5563", opacity: 0.4, width: 1 }, move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }}, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 140, line_linked: { opacity: 1 }}, push: { particles_nb: 4 }}}, retina_detect: true };
     function loadParticles(themeConfig) { particlesJS('particles-js', themeConfig); }
 
+    // --- Custom Cursor Logic ---
+    const cursor = document.querySelector('.custom-cursor');
+
+    // 1. Make the cursor follow the mouse
+    window.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // 2. Add effects when hovering over specific elements
+    const interactiveElements = document.querySelectorAll('a, button');
+
+    interactiveElements.forEach(el => {
+        // Add the simple hover effect
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-effect'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-effect'));
+    });
+
+    // 3. Add the text effect for elements with a data-attribute
+    const textElements = document.querySelectorAll('[data-cursor-text]');
+
+    textElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.remove('hover-effect'); // Remove the other effect
+            cursor.classList.add('text-state');
+            cursor.setAttribute('data-cursor-text', el.getAttribute('data-cursor-text'));
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('text-state');
+            cursor.removeAttribute('data-cursor-text');
+        });
+    });
+
 
     // --- THEME TOGGLE LOGIC ---
     const themeToggle = document.getElementById('theme-toggle');
