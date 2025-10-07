@@ -9,28 +9,82 @@ document.addEventListener('DOMContentLoaded', function() {
     const particlesLight = { particles: { number: { value: 80, density: { enable: true, value_area: 800 }}, color: { value: "#7452c3" }, shape: { type: "circle" }, opacity: { value: 0.6, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#4b5563", opacity: 0.4, width: 1 }, move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }}, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 140, line_linked: { opacity: 1 }}, push: { particles_nb: 4 }}}, retina_detect: true };
     function loadParticles(themeConfig) { particlesJS('particles-js', themeConfig); }
 
-    // --- Custom Cursor Logic ---
-    const cursor = document.querySelector('.custom-cursor');
-    if (cursor) {
-        window.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+    // --- CUSTOM CURSOR WITH TRAIL LOGIC ---
+    const cursorContainer = document.querySelector('.cursor-container');
+    if (cursorContainer) {
+        const numCircles = 5; // The total number of circles (1 head + 4 tail)
+        const circles = [];
+        const coords = { x: 0, y: 0 };
+
+        // Create the circle elements
+        for (let i = 0; i < numCircles; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('cursor-dot');
+            cursorContainer.appendChild(circle);
+            circles.push(circle);
+        }
+
+        // Give each circle a unique size and opacity
+        circles.forEach(function (circle, index) {
+            circle.x = 0;
+            circle.y = 0;
+            
+            const size = (numCircles - index) * 4; // Circles get smaller
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+            
+            // First circle (the "head") is fully opaque, others fade out
+            circle.style.opacity = index === 0 ? 1 : 1 - (index / numCircles) * 0.8;
         });
-        const interactiveElements = document.querySelectorAll('a, button');
+
+        // Update mouse coordinates
+        window.addEventListener("mousemove", function(e){
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+        });
+
+        // The animation loop
+        function animateCircles() {
+            let x = coords.x;
+            let y = coords.y;
+            
+            // The head circle follows the mouse directly with a delay
+            circles[0].style.left = x - (circles[0].offsetWidth / 2) + 'px';
+            circles[0].style.top = y - (circles[0].offsetHeight / 2) + 'px';
+            circles[0].x = x;
+            circles[0].y = y;
+
+            // Each subsequent circle follows the one in front of it
+            for (let i = 1; i < numCircles; i++) {
+                const prevCircle = circles[i - 1];
+                const nextCircle = circles[i];
+                
+                // Use linear interpolation (lerp) for a smooth delay
+                const easing = 0.25;
+                nextCircle.x += (prevCircle.x - nextCircle.x) * easing;
+                nextCircle.y += (prevCircle.y - nextCircle.y) * easing;
+                
+                nextCircle.style.left = nextCircle.x - (nextCircle.offsetWidth / 2) + 'px';
+                nextCircle.style.top = nextCircle.y - (nextCircle.offsetHeight / 2) + 'px';
+            }
+            
+            requestAnimationFrame(animateCircles);
+        }
+        animateCircles();
+
+        // Add the hover effect
+        const interactiveElements = document.querySelectorAll('a, button, [data-skill]');
         interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover-effect'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover-effect'));
-        });
-        const textElements = document.querySelectorAll('[data-cursor-text]');
-        textElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.classList.remove('hover-effect');
-                cursor.classList.add('text-state');
-                cursor.setAttribute('data-cursor-text', el.getAttribute('data-cursor-text'));
+                // We only apply the effect to the main circle
+                if (circles.length > 0) {
+                    circles[0].classList.add('hover-effect');
+                }
             });
             el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('text-state');
-                cursor.removeAttribute('data-cursor-text');
+                if (circles.length > 0) {
+                    circles[0].classList.remove('hover-effect');
+                }
             });
         });
     }

@@ -29,6 +29,8 @@ html[data-theme='light'] {
 
 html {
     scroll-behavior: smooth;
+    /* FIX: Prevent horizontal scroll/zoom */
+    overflow-x: hidden;
 }
 
 body {
@@ -37,6 +39,9 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
+    /* FIX: Ensure body width is constrained to the screen */
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* ============== PARTICLES.JS BACKGROUND ============== */
@@ -205,10 +210,6 @@ nav .logo {
     font-size: clamp(1.2rem, 3vw, 2rem);
     color: var(--secondary-color);
     margin-bottom: 1rem;
-    
-    /* --- THE FINAL FIX --- */
-    /* This forces the container to always be tall enough for two lines,
-       but DOES NOT change the alignment of the text inside it. */
     min-height: 3.5em; 
 }
 
@@ -225,9 +226,17 @@ nav .logo {
 
 .hero-buttons {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stacks buttons on small screens */
+    align-items: center;
     gap: 1rem;
     margin-bottom: 2rem;
+}
+
+@media (min-width: 480px) {
+    .hero-buttons {
+        flex-direction: row; /* Side-by-side on larger screens */
+        justify-content: center;
+    }
 }
 
 .social-links {
@@ -414,7 +423,6 @@ nav .logo {
 /* ============== CERTIFICATIONS SECTION ============== */
 .cert-grid {
     display: grid;
-    /* This creates responsive columns that are at least 250px wide */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     justify-items: center;
@@ -422,9 +430,9 @@ nav .logo {
 
 .cert-card {
     background-color: transparent;
-    width: 280px; /* Set to match the grid min-width for consistency */
+    width: 280px;
     height: 180px;
-    perspective: 1000px; /* This gives the 3D effect */
+    perspective: 1000px;
 }
 
 .cert-card-inner {
@@ -436,7 +444,6 @@ nav .logo {
     transform-style: preserve-3d;
 }
 
-/* The flip happens on hover */
 .cert-card:hover .cert-card-inner {
     transform: rotateY(180deg);
 }
@@ -445,7 +452,7 @@ nav .logo {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* For Safari */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-radius: 10px;
     display: flex;
@@ -479,8 +486,8 @@ nav .logo {
 }
 
 .cert-card-back ul {
-    list-style: circle; /* Your requested style */
-    padding-left: 1.5rem; /* Add some padding for the list style */
+    list-style: circle;
+    padding-left: 1.5rem;
     text-align: left;
     font-size: 0.8rem;
     width: 100%;
@@ -490,10 +497,7 @@ nav .logo {
     margin-bottom: 0.2rem;
 }
 
-
-
 /* ============== CONTACT SECTION ============== */
-/* ============== CONTACT FORM STYLES ============== */
 #contact-form {
     max-width: 700px;
     margin: 2rem auto;
@@ -577,12 +581,56 @@ footer {
     transform: translateY(0);
 }
 
-/* ============== RESPONSIVE DESIGN ============== */
+/* ============== CUSTOM CURSOR WITH TAIL ============== */
+.cursor-container {
+    /* Hide the default browser cursor on desktop */
+    cursor: none;
+}
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none; 
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+.cursor-dot.hover-effect {
+    transform: scale(2.5);
+    background-color: rgba(116, 82, 195, 0.5);
+}
+
+/* ============== RESPONSIVE DESIGN (REVISED) ============== */
+@media (max-width: 992px) {
+    /* Tablet and below */
+    .skills-grid {
+        /* Change from 4 columns to 2 */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
+    /* Mobile devices */
+
+    /* FIX: Adjust header padding for smaller screens */
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    /* FIX: Adjust main container padding */
+    .container {
+        padding: 4rem 1.5rem;
+    }
+
+    .main-heading {
+        font-size: 2.2rem; /* Reduce heading size */
+    }
+
+    /* FIX: Ensure the hamburger menu is visible and nav links are hidden */
     .menu-toggle {
         display: block;
     }
-
     #nav-links {
         position: fixed;
         top: 0;
@@ -598,54 +646,29 @@ footer {
         z-index: 1000;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     }
-
     #nav-links.active {
         right: 0;
     }
-
     #nav-links li a {
         font-size: 1.2rem;
     }
+
+    /* FIX: Hide the custom cursor on touch devices */
+    .cursor-container {
+        display: none;
+    }
+
+    /* FIX: Stack skill categories into a single column */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* FIX: Stack form group inputs into a single column */
+    #contact-form .form-group {
+        flex-direction: column;
+    }
+    #contact-form .form-group input {
+        width: 100%;
+    }
 }
 
-
-/* --- 1. Hide the default cursor --- */
-body {
-    cursor: none;
-}
-
-/* --- 2. Style the base custom cursor (the dot) --- */
-.custom-cursor {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 15px;
-    height: 15px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(1);
-    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
-    z-index: 9999;
-}
-
-/* --- 3. Style for the hover state (it gets bigger) --- */
-.custom-cursor.hover-effect {
-    transform: translate(-50%, -50%) scale(1.5); /* Makes the emoji 50% bigger */
-}
-
-/* --- 4. Style for the text state --- can be used in html like: data-cursor-text="Scroll" --- */
-.custom-cursor.text-state {
-    width: auto;
-    height: auto;
-    padding: 10px 15px;
-    border-radius: 20px;
-    background-color: var(--primary-color);
-}
-
-.custom-cursor.text-state::before {
-    content: attr(data-cursor-text); /* This will display the text */
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-}
