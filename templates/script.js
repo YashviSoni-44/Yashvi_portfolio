@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- TYPED.JS INITIALIZATION ---
     if (document.querySelector('.type-effect')) {
         const options = {
-            strings: ['Technology and Design.', 'Machine Learning.', 'Full-Stack Development.', 'Artificial Intelligence.'],
+            strings: ['Artificial Intelligence.', 'Full-Stack Development.', 'Machine Learning.', 'Prompt Engineering.'],
             typeSpeed: 50,
             backSpeed: 25,
             backDelay: 1500,

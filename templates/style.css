@@ -137,7 +137,7 @@ nav .logo {
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 6rem 2rem;
+    padding: 4.5rem 2rem;
 }
 
 .section-title {
@@ -219,7 +219,7 @@ nav .logo {
 }
 
 .hero-description {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto 2rem auto;
     color: var(--secondary-color);
 }
@@ -313,7 +313,7 @@ nav .logo {
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
 }
 
 .project-info {
