@@ -13,7 +13,7 @@
 
     <div id="particles-js"></div>
 
-    <div class="custom-cursor">💜</div>
+    <div class="custom-cursor"></div>
 
     <header>
         <nav>
@@ -39,7 +39,7 @@
         <section id="hero">
             <div class="hero-content">
                 <h1 class="main-heading">Hi, I'm Yashvi Soni</h1>
-                <h2 class="sub-heading">I build intelligent solutions at the intersection of <span class="type-effect"></span></h2>
+                <h2 class="sub-heading">I build intelligent solutions at the intersection of <span class="type-effect">&nbsp;</span></h2>
                 <p class="hero-description">
                     A passionate Computer Science student specializing in Generative AI, Machine Learning, and Web Development, with a keen eye for design and responsible AI practices.
                 </p>
@@ -328,12 +328,28 @@
 
 
 
-        <section id="contact" class="container">
+        <!-- <section id="contact" class="container">
             <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out!</p>
             <div data-aos="fade-up" data-aos-delay="100">
                  <a href="mailto:yashvisoni599@gmail.com" class="btn btn-primary">Say Hello!</a>
             </div>
+        </section> -->
+        
+        <section id="contact" class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to reach out!</p>
+            
+            <form id="contact-form" data-aos="fade-up" data-aos-delay="100">
+                <div class="form-group">
+                    <input type="text" name="from_name" id="from_name" placeholder="Your Name" required>
+                    <input type="email" name="reply_to" id="reply_to" placeholder="Your Email" required>
+                </div>
+                <input type="text" name="subject" id="subject" placeholder="Subject" required>
+                <textarea name="message" id="message" rows="6" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <p id="status-message"></p>
+            </form>
         </section>
 
     </main>
@@ -349,6 +365,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 
 </body>

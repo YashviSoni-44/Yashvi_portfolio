@@ -205,6 +205,11 @@ nav .logo {
     font-size: clamp(1.2rem, 3vw, 2rem);
     color: var(--secondary-color);
     margin-bottom: 1rem;
+    
+    /* --- THE FINAL FIX --- */
+    /* This forces the container to always be tall enough for two lines,
+       but DOES NOT change the alignment of the text inside it. */
+    min-height: 3.5em; 
 }
 
 .sub-heading .type-effect {
@@ -417,7 +422,7 @@ nav .logo {
 
 .cert-card {
     background-color: transparent;
-    width: 250px; /* Set to match the grid min-width for consistency */
+    width: 280px; /* Set to match the grid min-width for consistency */
     height: 180px;
     perspective: 1000px; /* This gives the 3D effect */
 }
@@ -488,8 +493,53 @@ nav .logo {
 
 
 /* ============== CONTACT SECTION ============== */
-#contact {
+/* ============== CONTACT FORM STYLES ============== */
+#contact-form {
+    max-width: 700px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form .form-group {
+    display: flex;
+    gap: 1rem;
+}
+
+#contact-form .form-group input {
+    width: 50%;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--card-bg-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+#contact-form button {
+    width: fit-content;
+    align-self: center;
+    cursor: pointer;
+}
+
+#status-message {
     text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
 }
 
 /* ============== FOOTER ============== */
@@ -569,10 +619,13 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    font-size: 1rem; /* Controls the size of the emoji */
+    width: 15px;
+    height: 15px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
     pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease; /* Updated transition */
+    transform: translate(-50%, -50%) scale(1);
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
     z-index: 9999;
 }
 
